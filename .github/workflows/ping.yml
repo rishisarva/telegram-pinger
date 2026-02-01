@@ -1,28 +1,18 @@
-name: Telegram Ping Bot
+name: Render Wakeup Ping
 
 on:
-  schedule:
-    - cron: "*/3 * * * *"
   workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
-        run: pip install requests
+      - run: pip install requests
 
-      - name: Send Telegram ping
-        env:
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          CHAT_ID: ${{ secrets.CHAT_ID }}
-        run: |
-          python ping.py || true
+      - run: python ping.py || true
